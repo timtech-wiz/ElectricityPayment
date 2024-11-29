@@ -47,7 +47,7 @@ Once your credentials are in the .env file, now you can migrate your database. T
 
 `php artisan migrate`
 
-## 9. Seeder data into your database
+## 9. Seed data into your database
 Once you  have migrated and you have confirmed your database has been populated with tables, you can then seed data with this command.
 `php artisan de:seed`
 
