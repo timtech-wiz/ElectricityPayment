@@ -314,4 +314,8 @@ To run a local development server you may run the following command. This will s
     "message": "The email field is required."
   }
 
+## Test Account
+email => johndoe@gmail.com,
+password => password123
+
 
