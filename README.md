@@ -1,5 +1,5 @@
-# ElectricityPayment
-An Electricity Bill Payment System
+# Electricity Bill Payment System
+
 # Initial Setup
 
 ## 1. Clone the repository
