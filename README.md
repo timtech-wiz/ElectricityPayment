@@ -55,3 +55,126 @@ Once you  have migrated and you have confirmed your database has been populated 
 To run a local development server you may run the following command. This will start a development server at **http://localhost:8000**.
 
 `php artisan serve`
+
+# API Documentation
+
+## Endpoints
+
+### 1. **GET /providers**
+- **Description**: Retrieves a list of providers.
+- **Authentication**: None
+- **Request**:
+  - **Method**: GET
+  - **URL**: `/providers`
+  - **Headers**: Accept=application/json
+
+- **Response**:
+  - **Status Code**: 200 OK
+  - **Content-Type**: `application/json`
+  - **Response Body**:
+    ```json
+    [
+      {
+        "id": 1,
+        "name": "Provider 1",
+        "description": "Description of provider 1",
+        "created_at": "2024-11-29T10:00:00.000000Z",
+        "updated_at": "2024-11-29T10:00:00.000000Z"
+      },
+      {
+        "id": 2,
+        "name": "Provider 2",
+        "description": "Description of provider 2",
+        "created_at": "2024-11-29T10:00:00.000000Z",
+        "updated_at": "2024-11-29T10:00:00.000000Z"
+      }
+    ]
+    ```
+
+---
+
+### 2. **POST /payment**
+- **Description**: Creates a new payment record.
+- **Authentication**: **Required** (`auth:sanctum` middleware)
+- **Request**:
+  - **Method**: POST
+  - **URL**: `/payment`
+  - **Headers**:
+    - `Authorization: Bearer {access_token}` (You need to provide a valid token from Sanctum authentication)
+    - `Content-Type: application/json`
+
+  - **Request Body**:
+    ```json
+    {
+      "user_id": 1,
+      "meter_number": "4584745739",
+      "amount": 1500.00,
+      "provider_id": 1
+    }
+    ```
+
+- **Response**:
+  - **Status Code**: 201 Created
+  - **Content-Type**: `application/json`
+  - **Response Body**:
+    ```json
+    {
+      "status": true,
+      "message": "Payment successfully processed",
+      "data": {
+        "id": 1,
+        "customer": "John Doe",
+        "meter_number": "4584745739",
+        "amount": 1500.00,
+        "provider": "[Ikedc]"
+        "Payment Date": "2024-11-29T10:30:00.000000Z",
+      }
+    }
+    ```
+
+---
+
+### 3. **GET /payments**
+- **Description**: Fetches the payment history for the authenticated user.
+- **Authentication**: **Required** (`auth:sanctum` middleware)
+- **Request**:
+  - **Method**: GET
+  - **URL**: `/payments`
+  - **Headers**:
+    - `Authorization: Bearer {access_token}`
+
+- **Response**:
+  - **Status Code**: 200 OK
+  - **Content-Type**: `application/json`
+  - **Response Body**:
+    ```json
+    [
+      {
+        "id": 1,
+        "customer": "John Doe",
+        "meter_number": "4584745739",
+        "amount": 1500.00,
+        "provider": "[Ikedc]"
+        "Payment Date": "2024-11-29T10:30:00.000000Z",
+      },
+      {
+        "id": 2,
+        "user_id": 1,
+        "meter_number": "4594745739",
+        "amount": 1200.00,
+        "provider": "[ibadanIkedc]"
+        "Payment Date": "2024-11-29T10:30:00.000000Z",
+      }
+    ]
+    ```
+
+---
+
+## Error Responses
+
+- **401 Unauthorized**: If the user is not authenticated or the token is invalid:
+  ```json
+  {
+    "message": "Unauthorized"
+  }
+
