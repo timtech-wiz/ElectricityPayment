@@ -178,3 +178,140 @@ To run a local development server you may run the following command. This will s
     "message": "Unauthorized"
   }
 
+
+  # Authentication
+
+## Endpoints
+
+### 1. **POST /register**
+- **Description**: Registers a new user.
+- **Authentication**: None (No middleware, can be accessed by guests)
+- **Request**:
+  - **Method**: POST
+  - **URL**: `/register`
+  - **Headers**: None required
+  - **Request Body**:
+    ```json
+    {
+      "name": "John Doe",
+      "email": "john.doe@example.com",
+      "password": "password123",
+    }
+    ```
+
+- **Response**:
+  - **Status Code**: 201 Created
+  - **Content-Type**: `application/json`
+  - **Response Body**:
+    ```json
+    {
+      "status": true,
+      "message": "User registered successfully",
+      "data": {
+        "id": 1,
+        "name": "John Doe",
+        "email": "john.doe@example.com",
+        "created_at": "2024-11-29T10:30:00.000000Z",
+        "updated_at": "2024-11-29T10:30:00.000000Z"
+      ,
+    "token": "4|03kB6BLFAgkWpV0TpX4zoJWyVAxBS0JnAUQzDqMj3c58dd24"
+    }
+    ```
+
+---
+
+### 2. **POST /login**
+- **Description**: Authenticates a user and returns an API token.
+- **Authentication**: None (No middleware, can be accessed by guests)
+- **Request**:
+  - **Method**: POST
+  - **URL**: `/login`
+  - **Headers**: None required
+  - **Request Body**:
+    ```json
+    {
+      "email": "john.doe@example.com",
+      "password": "password123"
+    }
+    ```
+
+- **Response**:
+  - **Status Code**: 200 OK
+  - **Content-Type**: `application/json`
+  - **Response Body**:
+    ```json
+    {
+      "status": true,
+      "message": "Login successful",
+      "token": "4|03kB6BLFAgkWpV0TpX4zoJWyVAxBS0JnAUQzDqMj3c58dd24"
+    }
+    ```
+
+---
+
+### 3. **POST /forgot-password**
+- **Description**: Sends a password reset link to the user's email address.
+- **Authentication**: None (No middleware, can be accessed by guests)
+- **Request**:
+  - **Method**: POST
+  - **URL**: `/forgot-password`
+  - **Headers**: None required
+  - **Request Body**:
+    ```json
+    {
+      "email": "john.doe@example.com"
+    }
+    ```
+
+- **Response**:
+  - **Status Code**: 200 OK
+  - **Content-Type**: `application/json`
+  - **Response Body**:
+    ```json
+    {
+      "status": true,
+      "message": "We have emailed your password reset link!"
+    }
+    ```
+
+---
+
+### 4. **POST /reset-password**
+- **Description**: Resets the user's password using the token received in the forgot-password email.
+- **Authentication**: None (No middleware, can be accessed by guests)
+- **Request**:
+  - **Method**: POST
+  - **URL**: `/reset-password`
+  - **Headers**: None required
+  - **Request Body**:
+    ```json
+    {
+      "token": "reset_token_received_in_email",
+      "email": "john.doe@example.com",
+      "password": "newpassword123",
+      "password_confirmation": "newpassword123"
+    }
+    ```
+
+- **Response**:
+  - **Status Code**: 200 OK
+  - **Content-Type**: `application/json`
+  - **Response Body**:
+    ```json
+    {
+      "status": true,
+      "message": "Your password has been successfully reset!"
+    }
+    ```
+
+---
+
+## Error Responses
+
+- **400 Bad Request**: If any required parameter is missing or invalid in the request:
+  ```json
+  {
+    "message": "The email field is required."
+  }
+
+
