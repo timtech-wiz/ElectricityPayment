@@ -49,7 +49,7 @@ Once your credentials are in the .env file, now you can migrate your database. T
 
 ## 9. Seed data into your database
 Once you  have migrated and you have confirmed your database has been populated with tables, you can then seed data with this command.
-`php artisan de:seed`
+`php artisan db:seed`
 
 ## 10. Local development server
 To run a local development server you may run the following command. This will start a development server at **http://localhost:8000**.
